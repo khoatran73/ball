@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpStatus, Post, Query, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Query, Res, UseFilters } from "@nestjs/common";
 import { CatDto, CreateCatDto } from "./dto/cats.dto";
 import { Response } from "express";
 import { CatsService } from "./cats.service";
+import { HttpExceptionFilter } from "~/common/filters/http-exception.filter";
 
 @Controller("cats")
 export class CatsController {
@@ -14,7 +15,9 @@ export class CatsController {
     }
 
     @Post()
-    create(@Body() createCatDto: CreateCatDto) {
+    @UseFilters(new HttpExceptionFilter())
+    async create(@Body() createCatDto: CreateCatDto) {
+        throw new BadRequestException("Bad request!!!");
         this.catsService.create(createCatDto);
     }
 }
