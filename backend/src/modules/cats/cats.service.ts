@@ -12,4 +12,8 @@ export class CatsService {
     findAll(): Cat[] {
         return this.cats;
     }
+
+    findOneByAge(age: number): Cat | undefined {
+        return this.cats.find((x) => (x.age = age));
+    }
 }

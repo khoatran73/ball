@@ -1,6 +1,14 @@
-export interface CreateCatDto {
+import { IsNotEmpty, IsNumber } from "class-validator";
+
+export class CreateCatDto {
+    @IsNotEmpty()
     name: string;
+
+    @IsNumber()
+    @IsNotEmpty()
     age: number;
+    
+    @IsNotEmpty()
     breed: string;
 }
 

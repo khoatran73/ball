@@ -1,4 +1,19 @@
-import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Query, Res, UseFilters } from "@nestjs/common";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    DefaultValuePipe,
+    Get,
+    HttpStatus,
+    Param,
+    ParseIntPipe,
+    Post,
+    Query,
+    Res,
+    UseFilters,
+    UsePipes,
+    ValidationPipe,
+} from "@nestjs/common";
 import { CatDto, CreateCatDto } from "./dto/cats.dto";
 import { Response } from "express";
 import { CatsService } from "./cats.service";
@@ -14,10 +29,24 @@ export class CatsController {
         return res.status(HttpStatus.OK).json(cats);
     }
 
+    @Get("paging")
+    findAllPaging(
+        @Query("page", new DefaultValuePipe(0), ParseIntPipe) page: number,
+        @Res() res: Response,
+    ) {
+        const cats = this.catsService.findAll();
+        return res.status(HttpStatus.OK).json(cats);
+    }
+
+    @Get(":age")
+    findOneByAge(@Param("age", ParseIntPipe) age: number) {
+        return this.catsService.findOneByAge(age);
+    }
+
     @Post()
-    @UseFilters(new HttpExceptionFilter())
-    async create(@Body() createCatDto: CreateCatDto) {
-        throw new BadRequestException("Bad request!!!");
+    // @UseFilters(new HttpExceptionFilter())
+    @UsePipes(new ValidationPipe())
+    create(@Body() createCatDto: CreateCatDto) {
         this.catsService.create(createCatDto);
     }
 }
