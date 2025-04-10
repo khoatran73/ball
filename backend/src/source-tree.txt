@@ -1,0 +1,52 @@
+src/
+├── app.module.ts                 # Root application module
+├── main.ts                       # Application entry file
+├── common/                       # Shared modules and utilities
+│   ├── decorators/               # Custom decorators
+│   ├── filters/                  # Exception filters
+│   ├── guards/                   # Authentication/authorization guards
+│   ├── interceptors/             # Request/response interceptors
+│   ├── middleware/               # Application middleware
+│   ├── pipes/                    # Validation/transformation pipes
+│   ├── utils/                    # Utility functions
+│   └── constants.ts              # Application constants
+│
+├── config/                       # Configuration files
+│   ├── app.config.ts             # Main application config
+│   ├── database.config.ts        # Database configuration
+│   ├── auth.config.ts            # Authentication config
+│   └── config.service.ts         # Configuration service
+│
+├── database/                     # Database related files
+│   ├── entities/                 # TypeORM entities
+│   ├── migrations/               # Database migrations
+│   ├── seeders/                  # Database seed data
+│   └── database.module.ts        # Database module
+│
+├── modules/                      # Feature modules (each feature in its own folder)
+│   ├── auth/                     # Authentication module
+│   │   ├── auth.controller.ts    # Auth controller
+│   │   ├── auth.service.ts       # Auth service
+│   │   ├── auth.module.ts        # Auth module
+│   │   ├── strategies/           # Auth strategies (JWT, Local, etc.)
+│   │   ├── dto/                  # Data transfer objects
+│   │   └── interfaces/           # Interfaces
+│   │
+│   ├── users/                    # Users module
+│   │   ├── users.controller.ts   # Users controller
+│   │   ├── users.service.ts      # Users service
+│   │   ├── users.module.ts       # Users module
+│   │   ├── dto/                 # Data transfer objects
+│   │   ├── entities/            # User entities
+│   │   └── interfaces/          # Interfaces
+│   │
+│   └── ...                       # Other feature modules
+│
+├── shared/                       # Shared resources
+│   ├── exceptions/               # Custom exceptions
+│   ├── logger/                   # Logging utilities
+│   └── types/                    # Common types
+│
+└── assets/                       # Static assets
+    ├── i18n/                     # Internationalization files
+    └── templates/                # Email templates
