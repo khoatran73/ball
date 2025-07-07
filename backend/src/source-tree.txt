@@ -1,3 +1,4 @@
+prisma/schema.prisma
 src/
 ├── app.module.ts                 # Root application module
 ├── main.ts                       # Application entry file
@@ -16,12 +17,6 @@ src/
 │   ├── database.config.ts        # Database configuration
 │   ├── auth.config.ts            # Authentication config
 │   └── config.service.ts         # Configuration service
-│
-├── database/                     # Database related files
-│   ├── entities/                 # TypeORM entities
-│   ├── migrations/               # Database migrations
-│   ├── seeders/                  # Database seed data
-│   └── database.module.ts        # Database module
 │
 ├── modules/                      # Feature modules (each feature in its own folder)
 │   ├── auth/                     # Authentication module

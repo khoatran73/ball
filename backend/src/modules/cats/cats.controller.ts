@@ -1,5 +1,4 @@
 import {
-    BadRequestException,
     Body,
     Controller,
     DefaultValuePipe,
@@ -10,15 +9,19 @@ import {
     Post,
     Query,
     Res,
-    UseFilters,
+    UseGuards,
     UsePipes,
     ValidationPipe,
 } from "@nestjs/common";
-import { CatDto, CreateCatDto } from "./dto/cats.dto";
 import { Response } from "express";
 import { CatsService } from "./cats.service";
-import { HttpExceptionFilter } from "~/common/filters/http-exception.filter";
+import { CreateCatDto } from "./dto/create-cat.dto";
+import { ApiBearerAuth } from "@nestjs/swagger";
+import { Roles } from "~/common/decorators/roles.decorator";
+import { JwtAuthGuard } from "~/common/guards/jwt-auth.guard";
+import { RolesGuard } from "~/common/guards/roles.guard";
 
+// @ApiBearerAuth()
 @Controller("cats")
 export class CatsController {
     constructor(private catsService: CatsService) {}
@@ -36,6 +39,13 @@ export class CatsController {
     ) {
         const cats = this.catsService.findAll();
         return res.status(HttpStatus.OK).json(cats);
+    }
+
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles("admin")
+    @Get("protected")
+    getProtectedData() {
+        return "You are admin";
     }
 
     @Get(":age")
